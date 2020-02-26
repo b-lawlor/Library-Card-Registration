@@ -1,0 +1,67 @@
+<script>
+  $(document).ready(function () {
+    console.log("document ready");
+    var inputs = document.getElementsByTagName("INPUT");
+    for (i = 0; i < inputs.length; i++) {
+      inputs[i].required = false;
+    }
+    document.getElementById("homelib").required = false;
+  })
+
+  function toggleAltAddress() {
+    var alt = document.getElementsByName("alt");
+    //console.log(alt[0].checked);
+    $('#altaddress').collapse('toggle');
+    if (alt[0].checked) {
+      document.getElementById("address2").required = true;
+      document.getElementById("city2").required = true;
+      document.getElementById("state2").required = true;
+      document.getElementById("zipcode2").required = true;
+    } else {
+      document.getElementById('address2').value = "";
+      document.getElementById('pobox2').value = "";
+      document.getElementById('city2').value = "";
+      document.getElementById('state2').value = "";
+      document.getElementById('zipcode2').value = "";
+      document.getElementById("address2").required = false;
+      document.getElementById("city2").required = false;
+      document.getElementById("state2").required = false;
+      document.getElementById("zipcode2").required = false;
+    }
+  }
+
+  function sendForm(e) {
+    console.log("form submitted");
+    e.preventDefault();
+    var data = {
+      firstname: $("#firstname").val(),
+      middlename: $("#middlename").val(),
+      lastname: $("#lastname").val(),
+      address: $("#address").val(),
+      pobox: $("#pobox").val(),
+      city: $("#city").val(),
+      state: $("#state").val(),
+      zipcode: $("#zipcode").val(),
+      alt: document.getElementsByName("alt")[0].checked,
+      address2: $("#address2").val(),
+      pobox2: $("#pobox2").val(),
+      city2: $("#city2").val(),
+      state2: $("#state2").val(),
+      zipcode2: $("#zipcode2").val(),
+      phone: $("#phone").val(),
+      email: $("#email").val(),
+      username: $("#username").val(),
+      homelib: $("#homelib").val()
+    };
+    console.log(data.alt);
+    $("button").attr("disabled", "disabled");
+    google.script.run.withSuccessHandler(confirmation(data.email)).processForm(data);
+  }
+
+  function confirmation(email) {
+    console.log("thanks for submitting");
+    $("#reg").remove();
+    $('#conf').collapse('toggle');
+    $("#conf-email").html(email);
+  }
+</script>

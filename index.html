@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CLAMS Card Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        // self-executing function
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <?!= include('javascript'); ?>
+</head>
+
+<body>
+    <div class="container">
+        <img class="mt-3 mb-2" src="https://admin.googleusercontent.com/logo-scs-key1972846">
+        <div id="reg">
+            <h1 class="border-bottom pb-3 mb-4" id="heading">Register for a Library Card</h1>
+            <form class="needs-validation registration" onsubmit="sendForm(event)" novalidate>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="firstname">First Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name"
+                            required>
+                        <div class="invalid-feedback">Please enter your first name</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="middlename">Middle Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="middlename" name="middlename"
+                            placeholder="Middle Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="lastname">Last Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"
+                            required>
+                        <div class="invalid-feedback">Please enter your last name</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="address">Address:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address"
+                            required>
+                        <div class="invalid-feedback">Please enter your residential address</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="pobox">PO Box:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="pobox" name="pobox" placeholder="PO Box">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">City, State, Zip Code:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+                        <div class="invalid-feedback">Valid city required</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="state" name="state" placeholder="State" required>
+                        <div class="invalid-feedback">Valid state required</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code"
+                            required>
+                        <div class="invalid-feedback">Valid zip code required </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Do you have an alternate address?</label>
+                    <div class="col-sm-9 mt-2">
+                        <label class="mb-0 mr-3">
+                            <input type="radio" class="mr-1" name="alt" value="true" onclick="toggleAltAddress()"> Yes
+                        </label>
+                        <label class="mb-0 mr-3">
+                            <input type="radio" class="mr-1" name="alt" value="false" onclick="toggleAltAddress()"
+                                checked> No
+                        </label>
+                    </div>
+                </div>
+
+                <div class="collapse" id="altaddress">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="address2">Alternate Address:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="address2" name="address2" placeholder="Address">
+                            <div class="invalid-feedback">Alternate address required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="pobox2">Alternate PO Box:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pobox2" name="pobox2" placeholder="PO Box">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Alternate City, State, Zip Code:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="city2" name="city2" placeholder="City">
+                            <div class="invalid-feedback">Alternate city required</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="state2" name="state2" placeholder="State">
+                            <div class="invalid-feedback">Alternate state required</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="zipcode2" name="zipcode2"
+                                placeholder="Zip Code">
+                            <div class="invalid-feedback">alternate zip code required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="phoneNumber">Phone Number:</label>
+                    <div class="col-sm-9">
+                        <input type="tel" class="form-control" id="phone" name="phone" pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+                            placeholder="Format 123-456-7890" required>
+                        <div class="invalid-feedback">Please provide a phone number in the format 123-456-7890</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="email">Email Address:</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
+                            required>
+                        <div class="invalid-feedback">please provide a valid email address</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="username">Username:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                            required>
+                        <div class="invalid-feedback">please provide a username</div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="homelib">Home Library</label>
+                    <div class="col-sm-9">
+                        <select class="custom-select" id="homelib" name="homelib" required>
+                            <option value="">Select a Home Library</option>
+                            <option value="aq">Aquinnah</option>
+                            <option value="ba">Barnstable</option>
+                            <option value="bn">Bourne</option>
+                            <option value="bl">Brewster/Ladies'</option>
+                            <option value="4c">Cape Cod Community College</option>
+                            <option value="cv">Centerville</option>
+                            <option value="ch">Chatham</option>
+                            <option value="ck">Chilmark</option>
+                            <option value="ct">Cotuit</option>
+                            <option value="dm">Dennis Memorial</option>
+                            <option value="dp">Dennis Public</option>
+                            <option value="dj">East Dennis/Jacob Sears</option>
+                            <option value="fe">East Falmouth</option>
+                            <option value="ea">Eastham</option>
+                            <option value="ed">Edgartown</option>
+                            <option value="fa">Falmouth</option>
+                            <option value="ha">Harwich/Brooks</option>
+                            <option value="hy">Hyannis</option>
+                            <option value="mm">Marstons Mills</option>
+                            <option value="mp">Mashpee</option>
+                            <option value="nt">Nantucket</option>
+                            <option value="ob">Oak Bluffs</option>
+                            <option value="or">Orleans/Snow</option>
+                            <option value="os">Osterville</option>
+                            <option value="pt">Provincetown</option>
+                            <option value="ds">South Dennis</option>
+                            <option value="ys">South Yarmouth</option>
+                            <option value="tr">Truro</option>
+                            <option value="vh">Vineyard Haven</option>
+                            <option value="wl">Wellfleet</option>
+                            <option value="wb">West Barnstable/Whelden</option>
+                            <option value="dw">West Dennis</option>
+                            <option value="fw">West Falmouth</option>
+                            <option value="wt">West Tisbury</option>
+                            <option value="yw">West Yarmouth</option>
+                            <option value="wh">Woods Hole</option>
+                            <option value="yp">Yarmouth Port</option>
+                        </select>
+                        <div class="invalid-feedback">Please choose a home library</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-9 offset-sm-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <!--<input type="reset" class="btn btn-secondary" value="Reset" onClick="document.getElementById('regform').classList.remove('was-validated');">-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="conf" class="collapse">
+            <h1>Thanks for registering for a CLAMS card</h1>
+            <p>An email has been sent to <span id=conf-email></span> with your acount information</p>
+        </div>
+    </div>
+</body>
+
+</html>
